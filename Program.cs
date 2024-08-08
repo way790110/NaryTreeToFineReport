@@ -11,7 +11,7 @@ class Program
         // 调用 XmlPartGenerator 生成 XML 部分
         XDocument xmlMain = XmlGenerator.GenerateXml();
 
-        XElement xmlRoot = new XElement("CellElementList");
+        // XElement xmlRoot = new XElement("CellElementList");
 
         // List<TreeNode> nodes = new List<TreeNode>
         // {
@@ -186,26 +186,28 @@ class Program
         };
 
 
-        // 建立字典以便快速查找節點
-        Dictionary<string, TreeNode> nodeDict = nodes.ToDictionary(n => n.Id);
+        // // 建立字典以便快速查找節點
+        // Dictionary<string, TreeNode> nodeDict = nodes.ToDictionary(n => n.Id);
 
-        foreach (var node in nodes)
-        {
-            if (node.ParentId == null)
-            {
-                continue; // 跳過根節點，因為它沒有父節點
-            }
-            if (nodeDict.ContainsKey(node.ParentId))
-            {
-                nodeDict[node.ParentId].Children.Add(node);
-            }
-        }
+        // foreach (var node in nodes)
+        // {
+        //     if (node.ParentId == null)
+        //     {
+        //         continue; // 跳過根節點，因為它沒有父節點
+        //     }
+        //     if (nodeDict.ContainsKey(node.ParentId))
+        //     {
+        //         nodeDict[node.ParentId].Children.Add(node);
+        //     }
+        // }
 
-        TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == null);
+        // TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == null);
 
-        // 打印樹狀結構，包括根節點
-        int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
-        xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
+        // // 打印樹狀結構，包括根節點
+        // int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
+        // xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
+
+        XElement xmlRoot = XmlPartGenerator.GenerateTree(nodes);
 
         XElement reportElement = xmlMain.Root.Element("Report");
         reportElement.Add(xmlRoot);
