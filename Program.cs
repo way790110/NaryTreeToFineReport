@@ -8,11 +8,6 @@ class Program
 {
     static void Main()
     {
-        // 调用 XmlPartGenerator 生成 XML 部分
-        XDocument xmlMain = XmlGenerator.GenerateXml();
-
-        // XElement xmlRoot = new XElement("CellElementList");
-
         // List<TreeNode> nodes = new List<TreeNode>
         // {
         //     new TreeNode("Root", null), // 根節點
@@ -185,37 +180,14 @@ class Program
             new TreeNode("短旋齒 (Brachionus plicatilis)", "短旋齒屬 (Brachionus)"),
         };
 
-
-        // // 建立字典以便快速查找節點
-        // Dictionary<string, TreeNode> nodeDict = nodes.ToDictionary(n => n.Id);
-
-        // foreach (var node in nodes)
-        // {
-        //     if (node.ParentId == null)
-        //     {
-        //         continue; // 跳過根節點，因為它沒有父節點
-        //     }
-        //     if (nodeDict.ContainsKey(node.ParentId))
-        //     {
-        //         nodeDict[node.ParentId].Children.Add(node);
-        //     }
-        // }
-
-        // TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == null);
-
-        // // 打印樹狀結構，包括根節點
-        // int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
-        // xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
+        XDocument xmlMain = XmlGenerator.GenerateXml();
 
         XElement cellElementList = XmlPartGenerator.GenerateCellElementList(nodes);
-        // XElement reportElement = xmlMain.Root.Element("Report");
-        // reportElement.Add(xmlRoot);
         xmlMain.Root.Element("Report").Add(cellElementList);
 
         XElement styleList = XmlPartGenerator.GenerateStyleList(nodes);
         xmlMain.Root.Element("Report").Add(styleList);
 
-        // XmlGenerator.DisplayXml(xmlMain);
         XmlGenerator.SaveXmlToFile(xmlMain, "output.cpt");
     }   
 }
