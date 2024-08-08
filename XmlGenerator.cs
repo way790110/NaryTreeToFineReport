@@ -30,11 +30,13 @@ namespace XmlGeneration
             }
         }
 
+
         public static void DisplayXml(XDocument xmlDoc)
         {
             string xmlOutput = xmlDoc.ToString();
             Console.WriteLine(xmlOutput);
         }
+
 
         public static XElement GenerateStyleList(List<TreeNode> nodes){
             return new XElement("StyleList",
