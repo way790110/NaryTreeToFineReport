@@ -4241,87 +4241,87 @@
         <Expand />
       </C>
     </CellElementList>
+    <StyleList>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="ColorBackground" color="-3342388" />
+        <Border>
+          <Top style="1" />
+          <Bottom style="1" />
+          <Left style="1" />
+          <Right style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Top style="1" />
+          <Bottom style="1" />
+          <Left style="1" />
+          <Right style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Top style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Right style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Bottom style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Left style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Left style="1" />
+          <Top style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Right style="1" />
+          <Top style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Right style="1" />
+          <Bottom style="1" />
+        </Border>
+      </Style>
+      <Style imageLayout="1">
+        <FRFont name="Microsoft JhengHei" style="0" size="72" />
+        <Background name="NullBackground" />
+        <Border>
+          <Left style="1" />
+          <Bottom style="1" />
+        </Border>
+      </Style>
+    </StyleList>
   </Report>
-  <StyleList>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="ColorBackground" color="-3342388" />
-      <Border>
-        <Top style="1" />
-        <Bottom style="1" />
-        <Left style="1" />
-        <Right style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Top style="1" />
-        <Bottom style="1" />
-        <Left style="1" />
-        <Right style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Top style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Right style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Bottom style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Left style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Left style="1" />
-        <Top style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Right style="1" />
-        <Top style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Right style="1" />
-        <Bottom style="1" />
-      </Border>
-    </Style>
-    <Style imageLayout="1">
-      <FRFont name="Microsoft JhengHei" style="0" size="72" />
-      <Background name="NullBackground" />
-      <Border>
-        <Left style="1" />
-        <Bottom style="1" />
-      </Border>
-    </Style>
-  </StyleList>
 </WorkBook>
