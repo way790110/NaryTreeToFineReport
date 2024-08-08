@@ -1,5 +1,5 @@
 bin
 obj
-output*.cpt
+output.cpt
 *.csproj
 *.sln
