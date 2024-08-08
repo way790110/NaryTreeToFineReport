@@ -1,7 +1,6 @@
 using System;
 using System.Xml.Linq;
 using XmlGeneration;
-using XmlPartGeneration;
 using TreeStructure;
 
 class Program
@@ -175,16 +174,16 @@ class Program
             new TreeNode("短旋齒屬 (Brachionus)", "短旋齒科 (Brachionidae)"),
             new TreeNode("短旋齒 (Brachionus plicatilis)", "短旋齒屬 (Brachionus)"),
         };
-        
+
         // Generate the main XML document using the XmlGenerator class
         XDocument xmlMain = XmlGenerator.GenerateXml();
 
         // Generate a list of cell elements and add it to the "Report" element in the main XML
-        XElement cellElementList = XmlPartGenerator.GenerateCellElementList(nodes);
+        XElement cellElementList = TreePrinter.GenerateCellElementList(nodes);
         xmlMain.Root.Element("Report").Add(cellElementList);
 
         // Generate a list of styles and add it to the "Report" element in the main XML
-        XElement styleList = XmlPartGenerator.GenerateStyleList(nodes);
+        XElement styleList = XmlGenerator.GenerateStyleList(nodes);
         xmlMain.Root.Element("Report").Add(styleList);
 
         // Save the modified XML document to a file named "output.cpt"

@@ -1,5 +1,5 @@
 using System.Xml.Linq;
-using XmlPartGeneration;
+using XmlGeneration;
 using System;
 using System.Collections.Generic;
 
@@ -19,15 +19,44 @@ namespace TreeStructure
         }
     }
 
+    
     public static class TreePrinter
     {
+        public static XElement GenerateCellElementList(List<TreeNode> nodes)
+        {
+            XElement xmlRoot = new XElement("CellElementList");
+                // 建立字典以便快速查找節點
+            Dictionary<string, TreeNode> nodeDict = nodes.ToDictionary(n => n.Id);
+
+            foreach (var node in nodes)
+            {
+                if (node.ParentId == null)
+                {
+                    continue; // 跳過根節點，因為它沒有父節點
+                }
+                if (nodeDict.ContainsKey(node.ParentId))
+                {
+                    nodeDict[node.ParentId].Children.Add(node);
+                }
+            }
+
+            TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == null);
+
+            // 打印樹狀結構，包括根節點
+            int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
+            xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
+
+            return xmlRoot;
+        }
+
+        
         public static XElement PrintTree(XElement element, TreeNode node, string indent, bool isLast, int depth, int[] currentWidth, bool isFirstInLevel, Dictionary<string, TreeNode> nodeDict)
         {
             int X_SPACE = 3;
             int X_START = 1;
             int Y_SPACE = 4;
             int Y_START = 1;
-            
+
             if (node == null) return element;
 
             // 打印當前節點及其深度和寬度
@@ -46,7 +75,7 @@ namespace TreeStructure
             if (depth == 0) // 根節點
             {
                 Console.Write("➽ ");
-                XmlPartGenerator.CreateRootCell(element, node.Id, "text2", X_START, Y_START);
+                XmlGenerator.CreateRootCell(element, node.Id, "text2", X_START, Y_START);
             }
 
             else
@@ -56,12 +85,12 @@ namespace TreeStructure
                     if (depth != 0 && isFirstInLevel && hasSingleChild)
                     {
                         Console.Write("┗━━━ ");
-                        XmlPartGenerator.AddOneNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddOneNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                     else
                     {
                         Console.Write("╞══ ");
-                        XmlPartGenerator.AddFirstNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddFirstNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                 }
                 else
@@ -70,20 +99,20 @@ namespace TreeStructure
                     {
                         if (indent[i] == '│')
                         {
-                            XmlPartGenerator.AddLineNode(element, j * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
+                            XmlGenerator.AddLineNode(element, j * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
                         }
                     }
                     if (isLast)
                     {
                         Console.Write("└── ");
                         currentWidth[0]++;
-                        XmlPartGenerator.AddLastNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddLastNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                     else
                     {
                         Console.Write("├── ");
                         currentWidth[0]++;
-                        XmlPartGenerator.AddMiddleNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddMiddleNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                 }
             }
