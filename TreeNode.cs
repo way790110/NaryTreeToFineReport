@@ -70,9 +70,7 @@ namespace TreeStructure
                 hasSingleChild = nodeDict[parentId].Children.Count == 1;
             }
 
-            // 如果當前節點的父節點只有一個子節點，在名稱前加上 $
-            
-            if (depth == 0) // 根節點
+            if (depth == 0)
             {
                 Console.Write("➽ ");
                 XmlGenerator.CreateRootCell(element, node.Id, "text2", X_START, Y_START);
