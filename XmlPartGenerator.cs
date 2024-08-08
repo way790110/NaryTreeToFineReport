@@ -2,11 +2,40 @@ using System;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
+using TreeStructure;
 
 namespace XmlPartGeneration
 {
     public class XmlPartGenerator
     {
+        public static XElement GenerateCellElementList(List<TreeNode> nodes)
+        {
+            XElement xmlRoot = new XElement("CellElementList");
+                // 建立字典以便快速查找節點
+            Dictionary<string, TreeNode> nodeDict = nodes.ToDictionary(n => n.Id);
+
+            foreach (var node in nodes)
+            {
+                if (node.ParentId == null)
+                {
+                    continue; // 跳過根節點，因為它沒有父節點
+                }
+                if (nodeDict.ContainsKey(node.ParentId))
+                {
+                    nodeDict[node.ParentId].Children.Add(node);
+                }
+            }
+
+            TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == null);
+
+            // 打印樹狀結構，包括根節點
+            int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
+            xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
+
+            return xmlRoot;
+        }
+
+
         public static void CreateRootCell(XElement root, string text1, string text2, int x, int y)
         {
             XElement cElement1 = new XElement("C",

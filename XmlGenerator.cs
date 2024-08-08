@@ -167,7 +167,7 @@ namespace XmlGeneration
                                 new XElement("Bottom", new XAttribute("style", "1"))
                             )
                         )
-                    ),
+                    )
                 )
             );
             return xmlDoc;
