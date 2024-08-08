@@ -8,7 +8,7 @@ namespace XmlGeneration
     {
         public static XDocument GenerateXml()
         {
-            XDocument xmlDoc = new XDocument(
+            return new XDocument(
                 new XDeclaration("1.0", "UTF-8", null),
                 new XElement("WorkBook",
                     new XAttribute("xmlVersion", "20211223"),
@@ -17,7 +17,6 @@ namespace XmlGeneration
                         new XAttribute("class", "com.fr.report.worksheet.WorkSheet"))
                 )
             );
-            return xmlDoc;
         }
 
 
