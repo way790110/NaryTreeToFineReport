@@ -21,9 +21,6 @@ class Program
         //     new TreeNode("Grandchild4", "Child2"),
         //     new TreeNode("Grandchild5", "Child2"),
         //     new TreeNode("Grandchild6", "Child3"),
-        //     new TreeNode("GGrandchild1", "Grandchild1"),
-        //     new TreeNode("GGrandchild2", "Grandchild1"),
-        //     new TreeNode("GGrandchild3", "Grandchild1"),
         // };
 
         List<TreeNode> nodes = new List<TreeNode>
