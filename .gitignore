@@ -1,5 +1,8 @@
+# c# console
 bin/
 obj/
-output.cpt
 *.csproj
 *.sln
+
+# program output
+output.cpt
