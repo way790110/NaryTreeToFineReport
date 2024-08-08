@@ -207,10 +207,13 @@ class Program
         // int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
         // xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
 
-        XElement xmlRoot = XmlPartGenerator.GenerateTree(nodes);
+        XElement cellElementList = XmlPartGenerator.GenerateCellElementList(nodes);
+        // XElement reportElement = xmlMain.Root.Element("Report");
+        // reportElement.Add(xmlRoot);
+        xmlMain.Root.Element("Report").Add(cellElementList);
 
-        XElement reportElement = xmlMain.Root.Element("Report");
-        reportElement.Add(xmlRoot);
+        XElement styleList = XmlPartGenerator.GenerateStyleList(nodes);
+        xmlMain.Root.Element("Report").Add(styleList);
 
         // XmlGenerator.DisplayXml(xmlMain);
         XmlGenerator.SaveXmlToFile(xmlMain, "output.cpt");

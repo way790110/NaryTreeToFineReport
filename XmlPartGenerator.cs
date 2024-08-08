@@ -35,6 +35,161 @@ namespace XmlPartGeneration
             return xmlRoot;
         }
 
+        public static XElement GenerateStyleList(List<TreeNode> nodes){
+            return new XElement("StyleList",
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "ColorBackground"),
+                        new XAttribute("color", "-3342388")
+                    ),
+                    new XElement("Border",
+                        new XElement("Top", new XAttribute("style", "1")),
+                        new XElement("Bottom", new XAttribute("style", "1")),
+                        new XElement("Left", new XAttribute("style", "1")),
+                        new XElement("Right", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Top", new XAttribute("style", "1")),
+                        new XElement("Bottom", new XAttribute("style", "1")),
+                        new XElement("Left", new XAttribute("style", "1")),
+                        new XElement("Right", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Top", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Right", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Bottom", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Left", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Left", new XAttribute("style", "1")),
+                        new XElement("Top", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Right", new XAttribute("style", "1")),
+                        new XElement("Top", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Right", new XAttribute("style", "1")),
+                        new XElement("Bottom", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Left", new XAttribute("style", "1")),
+                        new XElement("Bottom", new XAttribute("style", "1"))
+                    )
+                )
+            );
+        }
 
         public static void CreateRootCell(XElement root, string text1, string text2, int x, int y)
         {
