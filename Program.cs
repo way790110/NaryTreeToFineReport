@@ -25,7 +25,6 @@ class Program
 
         List<TreeNode> nodes = new List<TreeNode>
         {
-
             new TreeNode("生物界 (Biota)", null),
             new TreeNode("動物界 (Animalia)", "生物界 (Biota)"),
             new TreeNode("脊索動物門 (Chordata)", "動物界 (Animalia)"),
@@ -176,6 +175,7 @@ class Program
             new TreeNode("短旋齒屬 (Brachionus)", "短旋齒科 (Brachionidae)"),
             new TreeNode("短旋齒 (Brachionus plicatilis)", "短旋齒屬 (Brachionus)"),
         };
+        
         // Generate the main XML document using the XmlGenerator class
         XDocument xmlMain = XmlGenerator.GenerateXml();
 
