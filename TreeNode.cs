@@ -27,6 +27,7 @@ namespace TreeStructure
             int X_START = 1;
             int Y_SPACE = 4;
             int Y_START = 1;
+            
             if (node == null) return element;
 
             // 打印當前節點及其深度和寬度
