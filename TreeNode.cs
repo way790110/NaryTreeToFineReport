@@ -67,13 +67,13 @@ namespace TreeStructure
             {
                 if (value)
                 {
-                    // Code to execute if the value is true
-                    Console.Write("    ");
+                    // Code to execute if the value is false
+                    Console.Write("│   ");
                 }
                 else
                 {
-                    // Code to execute if the value is false
-                    Console.Write("│   ");
+                    // Code to execute if the value is true
+                    Console.Write("    ");
                 }
                 
             }
@@ -111,8 +111,9 @@ namespace TreeStructure
                 {
                     for (int i = 0; i < indent.Count; i++)
                     {
-                        XmlGenerator.AddLineNode(element, i * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
-
+                        if (indent[i] == true){
+                            XmlGenerator.AddLineNode(element, i * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
+                        }
                     }
                     if (isLast)
                     {
@@ -134,7 +135,7 @@ namespace TreeStructure
             // List<bool> newIndent = isLast ? indent.Add(false) : indent.Add(true);
             List<bool> newIndent = new List<bool>();
             newIndent.AddRange(indent);
-            newIndent.Add(isLast);
+            newIndent.Add(!isLast);
 
             // 打印所有子節點
             for (int i = 0; i < node.Children.Count; i++)
