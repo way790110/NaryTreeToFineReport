@@ -109,9 +109,7 @@ namespace TreeStructure
                     }
                 }
             }
-            // Console.WriteLine($" (Depth: {depth * 3 + 1}, Width: {currentWidth[0] * 4 + 1})");  // 打印節點後換行並顯示深度和寬度
-            
-            // List<bool> newIndent = isLast ? indent.Add(false) : indent.Add(true);
+
             List<bool> newIndent = new List<bool>();
             newIndent.AddRange(indent);
             newIndent.Add(!isLast);
@@ -192,9 +190,7 @@ namespace TreeStructure
                 }
             }
             Console.WriteLine(node.Id);
-            // Console.WriteLine($" (Depth: {depth * 3 + 1}, Width: {currentWidth[0] * 4 + 1})");  // 打印節點後換行並顯示深度和寬度
             
-            // List<bool> newIndent = isLast ? indent.Add(false) : indent.Add(true);
             List<bool> newIndent = new List<bool>();
             newIndent.AddRange(indent);
             newIndent.Add(!isLast);
