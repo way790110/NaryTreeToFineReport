@@ -44,13 +44,14 @@ namespace TreeStructure
 
             // 打印樹狀結構，包括根節點
             int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
-            xmlRoot = TreePrinter.PrintTree(xmlRoot, root, "", true, 0, currentWidth, true, nodeDict);
+            List<bool> indent = new List<bool>();
+            xmlRoot = TreePrinter.PrintTree(xmlRoot, root, indent, true, 0, currentWidth, true, nodeDict);
 
             return xmlRoot;
         }
 
         
-        public static XElement PrintTree(XElement element, TreeNode node, string indent, bool isLast, int depth, int[] currentWidth, bool isFirstInLevel, Dictionary<string, TreeNode> nodeDict)
+        public static XElement PrintTree(XElement element, TreeNode node, List<bool> indent, bool isLast, int depth, int[] currentWidth, bool isFirstInLevel, Dictionary<string, TreeNode> nodeDict)
         {
             int X_SPACE = 3;
             int X_START = 1;
@@ -60,7 +61,22 @@ namespace TreeStructure
             if (node.Id == "_ROOT_") return element;
 
             // 打印當前節點及其深度和寬度
-            Console.Write(indent);
+            // Console.Write(indent);
+
+            foreach (bool value in indent)
+            {
+                if (value)
+                {
+                    // Code to execute if the value is true
+                    Console.Write("    ");
+                }
+                else
+                {
+                    // Code to execute if the value is false
+                    Console.Write("│   ");
+                }
+                
+            }
             
             // 確認當前節點的父節點是否只有一個子節點
             string parentId = node.ParentId;
@@ -93,12 +109,10 @@ namespace TreeStructure
                 }
                 else
                 {
-                    for (int i = 0,  j = 0; i < indent.Length; i+=4, j += 1)
+                    for (int i = 0; i < indent.Count; i++)
                     {
-                        if (indent[i] == '│')
-                        {
-                            XmlGenerator.AddLineNode(element, j * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
-                        }
+                        XmlGenerator.AddLineNode(element, i * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
+
                     }
                     if (isLast)
                     {
@@ -117,7 +131,10 @@ namespace TreeStructure
             Console.WriteLine(node.Id);
             // Console.WriteLine($" (Depth: {depth * 3 + 1}, Width: {currentWidth[0] * 4 + 1})");  // 打印節點後換行並顯示深度和寬度
             
-            string newIndent = isLast ? indent + "    " : indent + "│   ";
+            // List<bool> newIndent = isLast ? indent.Add(false) : indent.Add(true);
+            List<bool> newIndent = new List<bool>();
+            newIndent.AddRange(indent);
+            newIndent.Add(isLast);
 
             // 打印所有子節點
             for (int i = 0; i < node.Children.Count; i++)
