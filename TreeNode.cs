@@ -45,13 +45,14 @@ namespace TreeStructure
             // 打印樹狀結構，包括根節點
             int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
             List<bool> indent = new List<bool>();
-            xmlRoot = TreePrinter.PrintTree(xmlRoot, root, indent, true, 0, currentWidth, true, nodeDict);
+            xmlRoot = TreePrinter.PrintTreeInFineReport(xmlRoot, root, indent, true, 0, currentWidth, true, nodeDict);
+            xmlRoot = TreePrinter.PrintTreeInCommandLine(xmlRoot, root, indent, true, 0, currentWidth, true, nodeDict);
 
             return xmlRoot;
         }
 
         
-        public static XElement PrintTree(XElement element, TreeNode node, List<bool> indent, bool isLast, int depth, int[] currentWidth, bool isFirstInLevel, Dictionary<string, TreeNode> nodeDict)
+        public static XElement PrintTreeInFineReport(XElement element, TreeNode node, List<bool> indent, bool isLast, int depth, int[] currentWidth, bool isFirstInLevel, Dictionary<string, TreeNode> nodeDict)
         {
             int X_SPACE = 3;
             int X_START = 1;
@@ -60,8 +61,74 @@ namespace TreeStructure
 
             if (node.Id == "_ROOT_") return element;
 
-            // 打印當前節點及其深度和寬度
-            // Console.Write(indent);
+            // 確認當前節點的父節點是否只有一個子節點
+            string parentId = node.ParentId;
+            bool hasSingleChild = false;
+
+            if (parentId != "_ROOT_" && nodeDict.ContainsKey(parentId))
+            {
+                hasSingleChild = nodeDict[parentId].Children.Count == 1;
+            }
+
+            if (depth == 0)
+            {
+                XmlGenerator.CreateRootCell(element, node.Id, "text2", X_START, Y_START);
+            }
+
+            else
+            {
+                if (isFirstInLevel)
+                {
+                    if (depth != 0 && isFirstInLevel && hasSingleChild)
+                    {
+                        XmlGenerator.AddOneNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                    }
+                    else
+                    {
+                        XmlGenerator.AddFirstNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < indent.Count; i++)
+                    {
+                        if (indent[i] == true){
+                            XmlGenerator.AddLineNode(element, i * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
+                        }
+                    }
+
+                    currentWidth[0]++;
+
+                    if (isLast)
+                    {
+                        XmlGenerator.AddLastNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                    }
+                    else
+                    {
+                        XmlGenerator.AddMiddleNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                    }
+                }
+            }
+            // Console.WriteLine($" (Depth: {depth * 3 + 1}, Width: {currentWidth[0] * 4 + 1})");  // 打印節點後換行並顯示深度和寬度
+            
+            // List<bool> newIndent = isLast ? indent.Add(false) : indent.Add(true);
+            List<bool> newIndent = new List<bool>();
+            newIndent.AddRange(indent);
+            newIndent.Add(!isLast);
+
+            // 打印所有子節點
+            for (int i = 0; i < node.Children.Count; i++)
+            {
+                PrintTreeInFineReport(element, node.Children[i], newIndent, i == node.Children.Count - 1, depth + 1, currentWidth, i == 0, nodeDict);
+            }
+
+            return element;
+        }
+
+        
+        public static XElement PrintTreeInCommandLine(XElement element, TreeNode node, List<bool> indent, bool isLast, int depth, int[] currentWidth, bool isFirstInLevel, Dictionary<string, TreeNode> nodeDict)
+        {
+            if (node.Id == "_ROOT_") return element;
 
             foreach (bool value in indent)
             {
@@ -89,7 +156,6 @@ namespace TreeStructure
             if (depth == 0)
             {
                 Console.Write("➽ ");
-                XmlGenerator.CreateRootCell(element, node.Id, "text2", X_START, Y_START);
             }
 
             else
@@ -99,12 +165,10 @@ namespace TreeStructure
                     if (depth != 0 && isFirstInLevel && hasSingleChild)
                     {
                         Console.Write("┗━━━ ");
-                        XmlGenerator.AddOneNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                     else
                     {
                         Console.Write("╞══ ");
-                        XmlGenerator.AddFirstNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                 }
                 else
@@ -112,20 +176,18 @@ namespace TreeStructure
                     for (int i = 0; i < indent.Count; i++)
                     {
                         if (indent[i] == true){
-                            XmlGenerator.AddLineNode(element, i * X_SPACE + X_START, (currentWidth[0] + 1) * Y_SPACE + Y_START);
                         }
                     }
+
+                    currentWidth[0]++;
+
                     if (isLast)
                     {
                         Console.Write("└── ");
-                        currentWidth[0]++;
-                        XmlGenerator.AddLastNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                     else
                     {
                         Console.Write("├── ");
-                        currentWidth[0]++;
-                        XmlGenerator.AddMiddleNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                 }
             }
@@ -140,7 +202,7 @@ namespace TreeStructure
             // 打印所有子節點
             for (int i = 0; i < node.Children.Count; i++)
             {
-                PrintTree(element, node.Children[i], newIndent, i == node.Children.Count - 1, depth + 1, currentWidth, i == 0, nodeDict);
+                PrintTreeInCommandLine(element, node.Children[i], newIndent, i == node.Children.Count - 1, depth + 1, currentWidth, i == 0, nodeDict);
             }
 
             return element;
