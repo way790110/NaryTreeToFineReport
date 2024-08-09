@@ -30,7 +30,7 @@ namespace TreeStructure
 
             foreach (var node in nodes)
             {
-                if (node.ParentId == null)
+                if (node.ParentId == "_ROOT_")
                 {
                     continue; // 跳過根節點，因為它沒有父節點
                 }
@@ -40,7 +40,7 @@ namespace TreeStructure
                 }
             }
 
-            TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == null);
+            TreeNode root = nodeDict.Values.FirstOrDefault(n => n.ParentId == "_ROOT_")!;
 
             // 打印樹狀結構，包括根節點
             int[] currentWidth = new int[] { 0 }; // 用於記錄每層的行號
@@ -57,7 +57,7 @@ namespace TreeStructure
             int Y_SPACE = 4;
             int Y_START = 1;
 
-            if (node == null) return element;
+            if (node.Id == "_ROOT_") return element;
 
             // 打印當前節點及其深度和寬度
             Console.Write(indent);
@@ -65,7 +65,7 @@ namespace TreeStructure
             // 確認當前節點的父節點是否只有一個子節點
             string parentId = node.ParentId;
             bool hasSingleChild = false;
-            if (parentId != null && nodeDict.ContainsKey(parentId))
+            if (parentId != "_ROOT_" && nodeDict.ContainsKey(parentId))
             {
                 hasSingleChild = nodeDict[parentId].Children.Count == 1;
             }
