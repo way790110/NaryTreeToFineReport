@@ -10,7 +10,7 @@ namespace XmlGeneration
         public static XDocument GenerateXml()
         {
             return new XDocument(
-                new XDeclaration("1.0", "UTF-8", null),
+                new XDeclaration("1.0", "UTF-8", "yes"),
                 new XElement("WorkBook",
                     new XAttribute("xmlVersion", "20211223"),
                     new XAttribute("releaseVersion", "10.0.0"),

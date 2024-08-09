@@ -2,6 +2,7 @@ using System;
 using System.Xml.Linq;
 using XmlGeneration;
 using TreeStructure;
+using System.Xml.Serialization;
 
 class Program
 {
@@ -9,7 +10,7 @@ class Program
     {
         // List<TreeNode> nodes = new List<TreeNode>
         // {
-        //     new TreeNode("Root", null), // 根節點
+        //     new TreeNode("Root", "_ROOT_"), // 根節點
         //     new TreeNode("Child1", "Root"),
         //     new TreeNode("Child2", "Root"),
         //     new TreeNode("Child3", "Root"),
@@ -24,7 +25,7 @@ class Program
 
         List<TreeNode> nodes = new List<TreeNode>
         {
-            new TreeNode("生物界 (Biota)", null),
+            new TreeNode("生物界 (Biota)", "_ROOT_"),
             new TreeNode("動物界 (Animalia)", "生物界 (Biota)"),
             new TreeNode("脊索動物門 (Chordata)", "動物界 (Animalia)"),
             new TreeNode("哺乳綱 (Mammalia)", "脊索動物門 (Chordata)"),
@@ -177,14 +178,15 @@ class Program
 
         // Generate the main XML document using the XmlGenerator class
         XDocument xmlMain = XmlGenerator.GenerateXml();
+        XElement xmlRoot = xmlMain.Root!.Element("Report") ?? new XElement("Report");
 
         // Generate a list of cell elements and add it to the "Report" element in the main XML
-        XElement cellElementList = TreePrinter.GenerateCellElementList(nodes);
-        xmlMain.Root.Element("Report").Add(cellElementList);
+        XElement cellElementList = TreePrinter.GenerateCellElementList(nodes) ?? new XElement("CellElementList");
+        xmlRoot.Add(cellElementList);
 
         // Generate a list of styles and add it to the "Report" element in the main XML
-        XElement styleList = XmlGenerator.GenerateStyleList(nodes);
-        xmlMain.Root.Element("Report").Add(styleList);
+        XElement styleList = XmlGenerator.GenerateStyleList(nodes)  ?? new XElement("StyleList");
+        xmlRoot.Add(styleList);
 
         // Save the modified XML document to a file named "output.cpt"
         XmlGenerator.SaveXmlToFile(xmlMain, "output.cpt");
