@@ -185,7 +185,7 @@ class Program
         xmlRoot.Add(cellElementList);
 
         // Generate a list of styles and add it to the "Report" element in the main XML
-        XElement styleList = XmlGenerator.GenerateStyleList(nodes)  ?? new XElement("StyleList");
+        XElement styleList = XmlGenerator.GenerateStyleList()  ?? new XElement("StyleList");
         xmlRoot.Add(styleList);
 
         // Save the modified XML document to a file named "output.cpt"
