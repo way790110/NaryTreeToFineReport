@@ -6,3 +6,9 @@ obj/
 
 # program output
 output.cpt
+
+# password
+.myenv
+
+# test file
+test.cs

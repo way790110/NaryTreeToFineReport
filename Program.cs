@@ -6,7 +6,8 @@ using System.Xml.Serialization;
 
 class Program
 {
-    static void Main()
+    static void asdf()
+    // static void Main()
     {
         // List<TreeNode> nodes = new List<TreeNode>
         // {
