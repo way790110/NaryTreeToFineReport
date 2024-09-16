@@ -2,13 +2,16 @@ using System;
 using System.Xml.Linq;
 using XmlGeneration;
 using TreeStructure;
+using SQLQuery;
 using System.Xml.Serialization;
+using System.Data;
 
 class Program
 {
-    static void asdf()
-    // static void Main()
+    static void Main()
     {
+        DataTable testtable = SQLQueryExecutor();
+        Environment.Exit(0);
         // List<TreeNode> nodes = new List<TreeNode>
         // {
         //     new TreeNode("Root", "_ROOT_"), // 根節點
