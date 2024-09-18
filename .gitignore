@@ -8,7 +8,7 @@ obj/
 output.cpt
 
 # password
-my_config.json
+config/
 
 # test file
 test.cs

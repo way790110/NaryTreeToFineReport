@@ -6,12 +6,48 @@ using SQLQuery;
 using System.Xml.Serialization;
 using System.Data;
 
+using System.Text.Json;
+using Microsoft.Data.SqlClient; // 或者 System.Data.SqlClient，如果使用舊版套件
+
 class Program
 {
     static void Main()
     {
-        DataTable testtable = SQLQueryExecutor();
+        //DataTable testtable = SQLQueryExecutor();
+        Console.WriteLine("step1");
+        string jsonString = File.ReadAllText("config/config_localhost.json");
+        Config config = JsonSerializer.Deserialize<Config>(jsonString);
+
+        string connectionString;
+        if (config.AUTH == "Windows Authentication")
+        {
+            connectionString = $"Server={config.SERVER};Database={config.DATABASE};User Id={config.USER};Password={config.PASSWORD};Integrated Security=True;TrustServerCertificate=True;";
+        }
+        else
+        {
+            connectionString = $"Server={config.SERVER};Database={config.DATABASE};User Id={config.USER};Password={config.PASSWORD};";
+        }
+
+        // string connectionString = "Server=localhost;Database=MyDatabase;User Id=myUsername;Password=myPassword;";
+
+        Console.WriteLine(connectionString);
+
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                Console.WriteLine("Connection successful!");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Connection error: {ex.Message}");
+        }
+
         Environment.Exit(0);
+        Console.WriteLine("step2");
+        
         // List<TreeNode> nodes = new List<TreeNode>
         // {
         //     new TreeNode("Root", "_ROOT_"), // 根節點
