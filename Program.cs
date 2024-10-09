@@ -107,7 +107,8 @@ class Program
                 CALCULATE_RATIO
             ORDER BY
                 CN_PARENT, 
-                CN_SON;";
+                CN_SON;
+        ";
 
         // 執行查詢並獲取結果
         DataTable result = executor.ExecuteQuery(query);

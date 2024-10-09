@@ -22,7 +22,7 @@ namespace SQLQuery
     {
         private string connectionString;
 
-        private string query;
+        // private string query;
 
         public SqlQueryExecutor(string configPath)
         {
