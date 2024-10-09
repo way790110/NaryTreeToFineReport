@@ -38,7 +38,7 @@ namespace XmlGeneration
         }
 
 
-        public static XElement GenerateStyleList(List<TreeNode> nodes){
+        public static XElement GenerateStyleList(){
             return new XElement("StyleList",
                 new XElement("Style",
                     new XAttribute("imageLayout", "1"),
