@@ -1,6 +1,8 @@
 {
-  "DB_SERVER": "localhost",
-  "DB_DATABASE": "MyDatabase",
-  "DB_USER": "YourUsername",
-  "DB_PASSWORD": "YourPassword"
+  "SERVER": "",
+  "DATABASE": "",
+  "USER": "",
+  "PASSWORD": "",
+  "Encrypt": true,
+  "TrustServerCertificate":true
 }
