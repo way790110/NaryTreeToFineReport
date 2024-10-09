@@ -22,8 +22,6 @@ namespace SQLQuery
     {
         private string connectionString;
 
-        // private string query;
-
         public SqlQueryExecutor(string configPath)
         {
             // 讀取 JSON 配置文件
