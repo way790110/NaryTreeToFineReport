@@ -76,14 +76,11 @@ class Program
         // 輸出結果
         foreach (DataRow row in result.Rows)
         {
-            Console.WriteLine(string.Join(", ", row.ItemArray));
             string childName = row.ItemArray[0]?.ToString() ?? "Unnamed";
             string parentName = row.ItemArray[3]?.ToString() ?? "NoParent";
             TreeNode node = new TreeNode(childName, parentName);
             nodes.Add(node);
         }
-        
-        Console.WriteLine("END");
         
         // Generate the main XML document using the XmlGenerator class
         XDocument xmlMain = XmlGenerator.GenerateXml();
