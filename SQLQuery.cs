@@ -9,17 +9,20 @@ namespace SQLQuery
 {
     public class Config
     {
-        public string SERVER { get; set; }
-        public string DATABASE { get; set; }
-        public string USER { get; set; }
-        public string PASSWORD { get; set; }
-        public string AUTH { get; set; }
+        public string SERVER { get; set; } = string.Empty;
+        public string DATABASE { get; set; } = string.Empty;
+        public string USER { get; set; } = string.Empty;
+        public string PASSWORD { get; set; } = string.Empty;
+        public bool ENCRYPT { get; set; } = true;
+        public bool AUTH { get; set; } = true;
     }
 
 
     public class SqlQueryExecutor
     {
-        private string _connectionString;
+        private string connectionString;
+
+        private string query;
 
         public SqlQueryExecutor(string configPath)
         {
@@ -27,7 +30,14 @@ namespace SQLQuery
             Config config = LoadConfig(configPath);
 
             // 構建連接字符串
-            _connectionString = $"Server={config.SERVER};Database={config.DATABASE};User Id={config.USER};Password={config.PASSWORD};";
+            connectionString = string.Concat(
+                $"Server={config.SERVER};",
+                $"Database={config.DATABASE};",
+                $"User Id={config.USER};",
+                $"Password={config.PASSWORD};",
+                $"Encrypt={config.ENCRYPT};",
+                $"TrustServerCertificate={config.AUTH};"
+            );
         }
 
         private Config LoadConfig(string filePath)
@@ -35,45 +45,38 @@ namespace SQLQuery
             try
             {
                 string jsonString = File.ReadAllText(filePath);
-                Config config = JsonSerializer.Deserialize<Config>(jsonString);
+                Config? config = JsonSerializer.Deserialize<Config>(jsonString);
+
+                // Check if config is null after deserialization
+                if (config == null)
+                {
+                    return new Config();
+                }
                 return config;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading configuration: {ex.Message}");
-                throw;
+                return new Config();
             }
         }
 
-        public DataTable ExecuteQuery(DateTime dateValue, decimal actUsage)
+        public DataTable ExecuteQuery(string query)
         {
-            string sqlQuery = @"
-                SELECT TOP(10) * FROM TN_POWER_SYS_VALUE_DAY;
-                ";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            DataTable dataTable = new DataTable();
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@DateParam", dateValue);
-                    command.Parameters.AddWithValue("@ActUsageParam", actUsage);
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-                    DataTable resultTable = new DataTable();
-
-                    try
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
-                        connection.Open();
-                        adapter.Fill(resultTable);
+                        adapter.Fill(dataTable); // 將查詢結果填充到 DataTable 中
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Query error: {ex.Message}");
-                    }
-
-                    return resultTable;
                 }
             }
+
+            return dataTable; // 返回查詢結果
         }
     }
 }
