@@ -83,16 +83,22 @@ class Program
         }
         
         // Generate the main XML document using the XmlGenerator class
-        XDocument xmlMain = XmlGenerator.GenerateXml();
-        XElement xmlRoot = xmlMain.Root!.Element("Report") ?? new XElement("Report");
+        XDocument xmlMain = XmlGenerator.GenerateBasicXml();
+
+        XElement xmlRoot = xmlMain.Root!.Element("TableDataMap") ?? new XElement("TableDataMap");
+        XElement TableData = XmlGenerator.GenerateTableDataMap(query);
+        xmlRoot.Add(TableData);
+
+        xmlRoot = xmlMain.Root!.Element("Report") ?? new XElement("Report");
 
         // Generate a list of cell elements and add it to the "Report" element in the main XML
         XElement cellElementList = TreePrinter.GenerateCellElementList(nodes) ?? new XElement("CellElementList");
         xmlRoot.Add(cellElementList);
 
         // Generate a list of styles and add it to the "Report" element in the main XML
-        XElement styleList = XmlGenerator.GenerateStyleList()  ?? new XElement("StyleList");
+        XElement styleList = XmlGenerator.GenerateStyleList() ?? new XElement("StyleList");
         xmlRoot.Add(styleList);
+
 
         // Save the modified XML document to a file named "output.cpt"
         XmlGenerator.SaveXmlToFile(xmlMain, "output.cpt");
