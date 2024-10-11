@@ -1,14 +1,9 @@
-using System;
 using System.Xml.Linq;
 using XmlGeneration;
 using TreeStructure;
 using SQLQuery;
-using System.Xml.Serialization;
 using System.Data;
 
-using System.Text.Json;
-using Microsoft.Data.SqlClient;
-using System.Data.Common; // 或者 System.Data.SqlClient，如果使用舊版套件
 
 class Program
 {
