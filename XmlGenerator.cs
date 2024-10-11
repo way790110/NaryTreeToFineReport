@@ -85,6 +85,11 @@ namespace XmlGeneration
                 ),
                 new XElement("Style",
                     new XAttribute("imageLayout", "1"),
+                    new XElement("Format",
+                        new XAttribute("class", "com.fr.base.CoreDecimalFormat"),
+                        new XAttribute("roundingMode", "6"),
+                        new XCData("#,##0") // Using CDATA for the format string
+                    ),
                     new XElement("FRFont",
                         new XAttribute("name", "Microsoft JhengHei"),
                         new XAttribute("style", "0"),
@@ -219,24 +224,88 @@ namespace XmlGeneration
             );
         }
 
-        public static void CreateRootCell(XElement root, string text1, string text2, int x, int y)
+        public static void CreateRootCell(XElement root, string id, string test2, int x, int y)
         {
             XElement cElement1 = new XElement("C",
                 new XAttribute("c", x),
                 new XAttribute("r", y),
                 new XAttribute("s", 0),
-                new XElement("O", new XCData(text1)),
-                new XElement("PrivilegeControl"),
-                new XElement("Expand")
+                new XElement("O",
+                    new XAttribute("t", "DSColumn"),
+                    new XElement("Attributes",
+                        new XAttribute("dsName", "ds_balance"),
+                        new XAttribute("columnName", "CHILD_NAME")
+                    ),
+                    new XElement("Condition",
+                        new XAttribute("class", "com.fr.data.condition.CommonCondition"),
+                        new XElement("CNUMBER",
+                            new XCData("0") // Using CDATA to include the number
+                        ),
+                        new XElement("CNAME",
+                            new XCData("CN_SON") // Using CDATA to include the string
+                        ),
+                        new XElement("Compare",
+                            new XAttribute("op", "0"),
+                            new XElement("O",
+                                new XCData(id) // Using CDATA to include the input parameter
+                            )
+                        )
+                    ),
+                    new XElement("Complex"), // Empty element
+                    new XElement("RG",
+                        new XAttribute("class", "com.fr.report.cell.cellattr.core.group.FunctionGrouper")
+                    ),
+                    new XElement("Result",
+                        new XCData("$$$") // Using CDATA to include the string
+                    ),
+                    new XElement("Parameters")
+                ),
+                new XElement("PrivilegeControl"), // Empty element
+                new XElement("Expand",
+                    new XAttribute("leftParentDefault", "false"),
+                    new XAttribute("upParentDefault", "false")
+                )
             );
 
             XElement cElement2 = new XElement("C",
                 new XAttribute("c", x),
                 new XAttribute("r", y + 1),
                 new XAttribute("s", 1),
-                new XElement("O", new XCData(text2)),
-                new XElement("PrivilegeControl"),
-                new XElement("Expand")
+                new XElement("O",
+                    new XAttribute("t", "DSColumn"),
+                    new XElement("Attributes",
+                        new XAttribute("dsName", "ds_balance"),
+                        new XAttribute("columnName", "CHILD_VALUE")
+                    ),
+                    new XElement("Condition",
+                        new XAttribute("class", "com.fr.data.condition.CommonCondition"),
+                        new XElement("CNUMBER",
+                            new XCData("0") // Using CDATA to include the number
+                        ),
+                        new XElement("CNAME",
+                            new XCData("CN_SON") // Using CDATA to include the string
+                        ),
+                        new XElement("Compare",
+                            new XAttribute("op", "0"),
+                            new XElement("O",
+                                new XCData(id) // Using CDATA to include the input parameter
+                            )
+                        )
+                    ),
+                    new XElement("Complex"), // Empty element
+                    new XElement("RG",
+                        new XAttribute("class", "com.fr.report.cell.cellattr.core.group.FunctionGrouper")
+                    ),
+                    new XElement("Result",
+                        new XCData("$$$") // Using CDATA to include the string
+                    ),
+                    new XElement("Parameters")
+                ),
+                new XElement("PrivilegeControl"), // Empty element
+                new XElement("Expand",
+                    new XAttribute("leftParentDefault", "false"),
+                    new XAttribute("upParentDefault", "false")
+                )
             );
 
             root.Add(cElement1);
