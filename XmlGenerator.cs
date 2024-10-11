@@ -246,7 +246,7 @@ namespace XmlGeneration
             );
         }
 
-        public static void CreateRootCell(XElement root, string id, string test2, int x, int y)
+        public static void CreateRootCell(XElement root, string id, int x, int y)
         {
             XElement cElement1 = new XElement("C",
                 new XAttribute("c", x),
@@ -335,9 +335,9 @@ namespace XmlGeneration
         }
 
 
-        public static void CreateNodeCell(XElement root, string id, string text2, string text3, int x, int y)
+        public static void CreateNodeCell(XElement root, string id, int x, int y)
         {
-            CreateRootCell(root, id, text2, x, y);
+            CreateRootCell(root, id, x, y);
 
             XElement cElement1 = new XElement("C",
                 new XAttribute("c", x),
@@ -496,17 +496,17 @@ namespace XmlGeneration
         }
 
 
-        public static void AddOneNode(XElement root, string text1, string text2, string text3, int x, int y)
+        public static void AddOneNode(XElement root, string id, int x, int y)
         {
-            CreateNodeCell(root, text1, text2, text3, x, y);
+            CreateNodeCell(root, id, x, y);
             LineBottom(root, x-1, y);
             LineBottom(root, x-2, y);
         }
 
 
-        public static void AddFirstNode(XElement root, string text1, string text2, string text3, int x, int y)
+        public static void AddFirstNode(XElement root, string id, int x, int y)
         {
-            CreateNodeCell(root, text1, text2, text3, x, y);
+            CreateNodeCell(root, id, x, y);
             CornerUpperLeft(root, x-1, y+1);
             LineTop(root, x-2, y+1);
             LineLeft(root, x-1, y+2);
@@ -514,9 +514,9 @@ namespace XmlGeneration
         }
 
 
-        public static void AddMiddleNode(XElement root, string text1, string text2, string text3, int x, int y)
+        public static void AddMiddleNode(XElement root, string id, int x, int y)
         {
-            CreateNodeCell(root, text1, text2, text3, x, y);
+            CreateNodeCell(root, id, x, y);
             CornerLowerLeft(root, x-1, y);
             LineLeft(root, x-1, y+1);
             LineLeft(root, x-1, y+2);
@@ -524,9 +524,9 @@ namespace XmlGeneration
         }
 
 
-        public static void AddLastNode(XElement root, string text1, string text2, string text3, int x, int y)
+        public static void AddLastNode(XElement root, string id, int x, int y)
         {
-            CreateNodeCell(root, text1, text2, text3, x, y);
+            CreateNodeCell(root, id, x, y);
             CornerLowerLeft(root, x-1, y);
         }
 
