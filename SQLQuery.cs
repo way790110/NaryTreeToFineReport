@@ -1,7 +1,4 @@
-using System;
-using System.IO;
 using System.Text.Json;
-
 using System.Data;
 using Microsoft.Data.SqlClient; // 或者 System.Data.SqlClient，如果使用舊版套件
 

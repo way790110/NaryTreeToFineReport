@@ -1,7 +1,5 @@
 using System.Xml.Linq;
 using XmlGeneration;
-using System;
-using System.Collections.Generic;
 
 namespace TreeStructure
 {
@@ -72,7 +70,7 @@ namespace TreeStructure
 
             if (depth == 0)
             {
-                XmlGenerator.CreateRootCell(element, node.Id, "text2", X_START, Y_START);
+                XmlGenerator.CreateRootCell(element, node.Id, X_START, Y_START);
             }
 
             else
@@ -81,11 +79,11 @@ namespace TreeStructure
                 {
                     if (depth != 0 && isFirstInLevel && hasSingleChild)
                     {
-                        XmlGenerator.AddOneNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddOneNode(element, node.Id, depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                     else
                     {
-                        XmlGenerator.AddFirstNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddFirstNode(element, node.Id, depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                 }
                 else
@@ -101,11 +99,11 @@ namespace TreeStructure
 
                     if (isLast)
                     {
-                        XmlGenerator.AddLastNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddLastNode(element, node.Id, depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                     else
                     {
-                        XmlGenerator.AddMiddleNode(element, node.Id, "text2", "text3", depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
+                        XmlGenerator.AddMiddleNode(element, node.Id, depth * X_SPACE + X_START, currentWidth[0] * Y_SPACE + Y_START);
                     }
                 }
             }
