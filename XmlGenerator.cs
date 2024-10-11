@@ -7,13 +7,14 @@ namespace XmlGeneration
 {
     public class XmlGenerator
     {
-        public static XDocument GenerateXml()
+        public static XDocument GenerateBasicXml()
         {
             return new XDocument(
                 new XDeclaration("1.0", "UTF-8", "yes"),
                 new XElement("WorkBook",
                     new XAttribute("xmlVersion", "20211223"),
                     new XAttribute("releaseVersion", "10.0.0"),
+                    new XElement("TableDataMap"),
                     new XElement("Report",
                         new XAttribute("class", "com.fr.report.worksheet.WorkSheet"))
                 )
@@ -37,8 +38,32 @@ namespace XmlGeneration
             Console.WriteLine(xmlOutput);
         }
 
+        public static XElement GenerateTableDataMap(string query)
+        {
+            return new XElement("TableDataMap",  // 根节点
+                new XElement("TableData",
+                    new XAttribute("name", "ds_balance"),
+                    new XAttribute("class", "com.fr.data.impl.DBTableData"),
+                    new XElement("Attributes",
+                        new XAttribute("maxMemRowCount", "-1")
+                    ),
+                    new XElement("Connection",
+                        new XAttribute("class", "com.fr.data.impl.NameDatabaseConnection"),
+                        new XElement("DatabaseName",
+                            new XCData("IntelligentService_TXC")  // CDATA 包含数据库名称
+                        )
+                    ),
+                    new XElement("Query",
+                        new XCData(query) // 使用输入的查询字符串
+                    )
+                )
+            );
+        }
 
-        public static XElement GenerateStyleList(){
+
+
+        public static XElement GenerateStyleList()
+        {
             return new XElement("StyleList",
                 new XElement("Style",
                     new XAttribute("imageLayout", "1"),

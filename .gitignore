@@ -5,7 +5,7 @@ obj/
 *.sln
 
 # program output
-output.cpt
+output*.cpt
 
 # password
 config/
