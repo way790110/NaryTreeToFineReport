@@ -107,6 +107,28 @@ namespace XmlGeneration
                 ),
                 new XElement("Style",
                     new XAttribute("imageLayout", "1"),
+                    new XElement("Format",
+                        new XAttribute("class", "com.fr.base.CoreDecimalFormat"),
+                        new XAttribute("roundingMode", "6"),
+                        new XCData("#0.00%") // Using CDATA for the format string
+                    ),
+                    new XElement("FRFont",
+                        new XAttribute("name", "Microsoft JhengHei"),
+                        new XAttribute("style", "0"),
+                        new XAttribute("size", "72")
+                    ),
+                    new XElement("Background",
+                        new XAttribute("name", "NullBackground")
+                    ),
+                    new XElement("Border",
+                        new XElement("Top", new XAttribute("style", "1")),
+                        new XElement("Bottom", new XAttribute("style", "1")),
+                        new XElement("Left", new XAttribute("style", "1")),
+                        new XElement("Right", new XAttribute("style", "1"))
+                    )
+                ),
+                new XElement("Style",
+                    new XAttribute("imageLayout", "1"),
                     new XElement("FRFont",
                         new XAttribute("name", "Microsoft JhengHei"),
                         new XAttribute("style", "0"),
@@ -313,17 +335,49 @@ namespace XmlGeneration
         }
 
 
-        public static void CreateNodeCell(XElement root, string text1, string text2, string text3, int x, int y)
+        public static void CreateNodeCell(XElement root, string id, string text2, string text3, int x, int y)
         {
-            CreateRootCell(root, text1, text2, x, y);
+            CreateRootCell(root, id, text2, x, y);
 
             XElement cElement1 = new XElement("C",
                 new XAttribute("c", x),
                 new XAttribute("r", y + 2),
-                new XAttribute("s", 1),
-                new XElement("O", new XCData(text3)),
+                new XAttribute("s", 2),
+                new XElement("O",
+                    new XAttribute("t", "DSColumn"),
+                    new XElement("Attributes",
+                        new XAttribute("dsName", "ds_balance"),
+                        new XAttribute("columnName", "RATIO")
+                    ),
+                    new XElement("Condition",
+                        new XAttribute("class", "com.fr.data.condition.CommonCondition"),
+                        new XElement("CNUMBER",
+                            new XCData("0") // CDATA for CNUMBER
+                        ),
+                        new XElement("CNAME",
+                            new XCData("CN_SON") // CDATA for CNAME
+                        ),
+                        new XElement("Compare",
+                            new XAttribute("op", "0"),
+                            new XElement("O",
+                                new XCData(id) // Using input parameter
+                            )
+                        )
+                    ),
+                    new XElement("Complex"),
+                    new XElement("RG",
+                        new XAttribute("class", "com.fr.report.cell.cellattr.core.group.FunctionGrouper")
+                    ),
+                    new XElement("Result",
+                        new XCData("$$$") // CDATA for Result
+                    ),
+                    new XElement("Parameters")
+                ),
                 new XElement("PrivilegeControl"),
-                new XElement("Expand")
+                new XElement("Expand",
+                    new XAttribute("leftParentDefault", "false"),
+                    new XAttribute("upParentDefault", "false")
+                )
             );
 
             root.Add(cElement1);
@@ -331,20 +385,6 @@ namespace XmlGeneration
 
 
         public static void LineTop(XElement root, int x, int y)
-        {
-            XElement cElement = new XElement("C",
-                new XAttribute("c", x),
-                new XAttribute("r", y),
-                new XAttribute("s", 2),
-                new XElement("PrivilegeControl"),
-                new XElement("Expand")
-            );
-
-            root.Add(cElement);
-        }
-
-
-        public static void LineRight(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
@@ -358,7 +398,7 @@ namespace XmlGeneration
         }
 
 
-        public static void LineBottom(XElement root, int x, int y)
+        public static void LineRight(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
@@ -372,7 +412,7 @@ namespace XmlGeneration
         }
 
 
-        public static void LineLeft(XElement root, int x, int y)
+        public static void LineBottom(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
@@ -386,7 +426,7 @@ namespace XmlGeneration
         }
 
 
-        public static void CornerUpperLeft(XElement root, int x, int y)
+        public static void LineLeft(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
@@ -400,7 +440,7 @@ namespace XmlGeneration
         }
 
 
-        public static void CornerUpperRight(XElement root, int x, int y)
+        public static void CornerUpperLeft(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
@@ -414,7 +454,7 @@ namespace XmlGeneration
         }
 
 
-        public static void CornerLowerRight(XElement root, int x, int y)
+        public static void CornerUpperRight(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
@@ -428,12 +468,26 @@ namespace XmlGeneration
         }
 
 
-        public static void CornerLowerLeft(XElement root, int x, int y)
+        public static void CornerLowerRight(XElement root, int x, int y)
         {
             XElement cElement = new XElement("C",
                 new XAttribute("c", x),
                 new XAttribute("r", y),
                 new XAttribute("s", 9),
+                new XElement("PrivilegeControl"),
+                new XElement("Expand")
+            );
+
+            root.Add(cElement);
+        }
+
+
+        public static void CornerLowerLeft(XElement root, int x, int y)
+        {
+            XElement cElement = new XElement("C",
+                new XAttribute("c", x),
+                new XAttribute("r", y),
+                new XAttribute("s", 10),
                 new XElement("PrivilegeControl"),
                 new XElement("Expand")
             );
